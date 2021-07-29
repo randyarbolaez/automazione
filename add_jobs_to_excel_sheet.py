@@ -51,28 +51,32 @@ class JobAutomation:
         return self.listOfJobUrl
 
     def addJobToList(self):
-        i = 0
+        i = 1
         while len(self.listOfCompanies) != 5:
             try:
                 if i == 101:
                     self.driver.find_element_by_xpath(
                         '//*[@id="pnnext"]').click()
-                    i = 0
+                    i = 1
                 else:
-                    jobLink = self.driver.find_element_by_xpath(
-                        '//*[@id="rso"]/div[' + str(i) + ']/div/div[1]/a').get_attribute('href')
+                    print('hello', self.driver.find_element_by_css_selector(
+                        '#rso > div:nth-child('+str(i)+') > div > div > div.yuRUbf > a').get_attribute('href'))
+                    jobLink = self.driver.find_element_by_css_selector(
+                        '#rso > div:nth-child('+str(i)+') > div > div > div.yuRUbf > a').get_attribute('href')
                     name = jobLink.split('/')[3]
-                if jobLink in self.listOfJobUrl:
-                    print('it\'s already in excel sheet, no need to add duplicates')
-                if jobLink not in self.listOfJobUrl:
-                    self.listOfCompanies.append(
-                        {'name': name, 'link': jobLink})
-                    self.sheet['A' + str(self.emptyRow)] = name
-                    self.sheet['C' + str(self.emptyRow)].hyperlink = jobLink
-                    self.sheet['D' + str(self.emptyRow)] = self.jobTitle
-                    self.sheet['E' + str(self.emptyRow)
-                               ] = self.locationToSearch
-                    self.emptyRow += 1
+                    if jobLink in self.listOfJobUrl:
+                        print(
+                            'it\'s already in excel sheet, no need to add duplicates')
+                    if jobLink not in self.listOfJobUrl:
+                        self.listOfCompanies.append(
+                            {'name': name, 'link': jobLink})
+                        self.sheet['A' + str(self.emptyRow)] = name
+                        self.sheet['C' + str(self.emptyRow)
+                                   ].hyperlink = jobLink
+                        self.sheet['D' + str(self.emptyRow)] = self.jobTitle
+                        self.sheet['E' + str(self.emptyRow)
+                                   ] = self.locationToSearch
+                        self.emptyRow += 1
             except NoSuchElementException:
                 print('NOT A LINK')
             i += 1
@@ -81,8 +85,8 @@ class JobAutomation:
         print('addCompanyUrl', self.listOfCompanies)
         for j in range(len(self.listOfCompanies)):
             self.driver.get('http://google.com/')
-            search = self.driver.find_element_by_xpath(
-                '//*[@id="tsf"]/div[2]/div[1]/div[1]/div/div[2]/input')
+            search = self.driver.find_element_by_css_selector(
+                'body > div.L3eUgb > div.o3j99.ikrT4e.om7nvf > form > div:nth-child(1) > div.A8SBwf > div.RNNXgb > div > div.a4bIc > input')
             search.send_keys(self.listOfCompanies[j]['name'])
             search.submit()
             try:
