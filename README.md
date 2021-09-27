@@ -10,6 +10,10 @@ python3 add_jobs_to_excel_sheet.py "Accountant" "Miami"
 
 The argument after the file is the job title that the user wants to search for while the second argument is the location of the job.
 
+### Gif of Application
+
+![Alt Text](./public/automazione.gif)
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
