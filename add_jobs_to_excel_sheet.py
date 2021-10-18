@@ -15,6 +15,11 @@ class JobAutomation:
         wb = load_workbook(filename='job_progress.xlsx')
     else:
         wb = Workbook()
+        wb.active['A1'] = 'Company Name'
+        wb.active['B1'] = 'Company Website'
+        wb.active['C1'] = 'Job Posting'
+        wb.active['D1'] = 'Job Title'
+        wb.active['E1'] = 'Location'
     sheet = wb.active
     emptyRow = 0
     backup = 0
