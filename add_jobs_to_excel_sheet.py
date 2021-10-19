@@ -95,14 +95,26 @@ class JobAutomation:
             search.send_keys(self.listOfCompanies[j]['name'])
             search.submit()
             try:
-                searchLink = self.driver.find_element_by_xpath(
-                    '//*[@id="rso"]/div[1]/div/div/div/div[1]/a').get_attribute('href')
+                if 'lever' in self.listOfCompanies[j]['link']:
+                    print('job was a lever website')
+                    searchLink = self.findCompanyUrlInLeverWebsite(
+                        self.listOfCompanies[j]['link'])
+                else:
+                    searchLink = self.driver.find_element_by_xpath(
+                        '//*[@id="rso"]/div[1]/div/div/div/div[1]/a').get_attribute('href')
             except NoSuchElementException:
-                searchLink = 'N/A'
+                searchLink = 'Could not find link'
 
             self.listOfCompanies[j]["companyUrl"] = searchLink
             self.sheet['B' + str(self.backup)].hyperlink = searchLink
             self.backup += 1
+
+    def findCompanyUrlInLeverWebsite(self, jobLink):
+        self.driver.get(jobLink)
+        companyUrl = jobLink = self.driver.find_element_by_css_selector(
+            'body > div.main-footer.page-full-width > div > p > a').get_attribute('href')
+        print('findCompanyUrlInLeverWebsite', {jobLink, companyUrl})
+        return companyUrl
 
     def wholeProcess(self):
         self.findingEmptyRow()
