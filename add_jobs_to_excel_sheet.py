@@ -99,6 +99,10 @@ class JobAutomation:
                     print('job was a lever website')
                     searchLink = self.findCompanyUrlInLeverWebsite(
                         self.listOfCompanies[j]['link'])
+                elif 'greenhouse' in self.listOfCompanies[j]['link']:
+                    print('job was a greenhouse website')
+                    searchLink = self.findCompanyUrlInGreenhouseWebsite(
+                        self.listOfCompanies[j]['link'])
                 else:
                     searchLink = self.driver.find_element_by_xpath(
                         '//*[@id="rso"]/div[1]/div/div/div/div[1]/a').get_attribute('href')
@@ -114,6 +118,16 @@ class JobAutomation:
         companyUrl = jobLink = self.driver.find_element_by_css_selector(
             'body > div.main-footer.page-full-width > div > p > a').get_attribute('href')
         print('findCompanyUrlInLeverWebsite', {jobLink, companyUrl})
+        return companyUrl
+
+    def findCompanyUrlInGreenhouseWebsite(self, jobLink):
+        self.driver.get(jobLink)
+        try:
+            companyUrl = jobLink = self.driver.find_element_by_css_selector(
+                '#logo > a').get_attribute('href')
+        except NoSuchElementException:
+            companyUrl = 'N/A findCompanyUrlInGreenhouseWebsite'
+        print('findCompanyUrlInGreenhouseWebsite', {jobLink, companyUrl})
         return companyUrl
 
     def wholeProcess(self):
