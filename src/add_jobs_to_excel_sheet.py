@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
 from openpyxl import Workbook, load_workbook
+from find_company_url import FindCompanyUrl
 import os
 import sys
 
@@ -97,12 +98,16 @@ class JobAutomation:
             try:
                 if 'lever' in self.listOfCompanies[j]['link']:
                     print('job was a lever website')
-                    searchLink = self.findCompanyUrlInLeverWebsite(
-                        self.listOfCompanies[j]['link'])
+                    # searchLink = self.findCompanyUrlInLeverWebsite(
+                    #     self.listOfCompanies[j]['link'])
+                    searchLink = FindCompanyUrl.findCompanyUrlInLeverWebsite(self,
+                                                                             self.listOfCompanies[j]['link'])
                 elif 'greenhouse' in self.listOfCompanies[j]['link']:
                     print('job was a greenhouse website')
-                    searchLink = self.findCompanyUrlInGreenhouseWebsite(
-                        self.listOfCompanies[j]['link'])
+                    # searchLink = self.findCompanyUrlInGreenhouseWebsite(
+                    #     self.listOfCompanies[j]['link'])
+                    searchLink = FindCompanyUrl.findCompanyUrlInGreenhouseWebsite(self,
+                                                                                  self.listOfCompanies[j]['link'])
                 else:
                     searchLink = self.driver.find_element_by_xpath(
                         '//*[@id="rso"]/div[1]/div/div/div/div[1]/a').get_attribute('href')
