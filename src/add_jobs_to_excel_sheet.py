@@ -90,11 +90,6 @@ class JobAutomation:
     def addCompanyUrl(self):
         print('addCompanyUrl', self.listOfCompanies)
         for j in range(len(self.listOfCompanies)):
-            self.driver.get('http://google.com/')
-            search = self.driver.find_element_by_css_selector(
-                'body > div.L3eUgb > div.o3j99.ikrT4e.om7nvf > form > div:nth-child(1) > div.A8SBwf > div.RNNXgb > div > div.a4bIc > input')
-            search.send_keys(self.listOfCompanies[j]['name'])
-            search.submit()
             try:
                 if 'lever' in self.listOfCompanies[j]['link']:
                     print('job was a lever website')
@@ -109,6 +104,11 @@ class JobAutomation:
                     searchLink = FindCompanyUrl.findCompanyUrlInGreenhouseWebsite(self,
                                                                                   self.listOfCompanies[j]['link'])
                 else:
+                    self.driver.get('http://google.com/')
+                    search = self.driver.find_element_by_css_selector(
+                        'body > div.L3eUgb > div.o3j99.ikrT4e.om7nvf > form > div:nth-child(1) > div.A8SBwf > div.RNNXgb > div > div.a4bIc > input')
+                    search.send_keys(self.listOfCompanies[j]['name'])
+                    search.submit()
                     searchLink = self.driver.find_element_by_xpath(
                         '//*[@id="rso"]/div[1]/div/div/div/div[1]/a').get_attribute('href')
             except NoSuchElementException:
