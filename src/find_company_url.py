@@ -4,7 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 class FindCompanyUrl:
-    def findCompanyUrlInLeverWebsite(self, jobLink):
+    def leverWebsite(self, jobLink):
         self.driver.get(jobLink)
         try:
             companyUrl = jobLink = self.driver.find_element_by_css_selector(
@@ -13,7 +13,7 @@ class FindCompanyUrl:
             companyUrl = 'N/A'
         return companyUrl
 
-    def findCompanyUrlInGreenhouseWebsite(self, jobLink):
+    def greenhouseWebsite(self, jobLink):
         self.driver.get(jobLink)
         try:
             companyUrl = jobLink = self.driver.find_element_by_css_selector(

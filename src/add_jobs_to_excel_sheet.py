@@ -93,16 +93,12 @@ class JobAutomation:
             try:
                 if 'lever' in self.listOfCompanies[j]['link']:
                     print('job was a lever website')
-                    # searchLink = self.findCompanyUrlInLeverWebsite(
-                    #     self.listOfCompanies[j]['link'])
-                    searchLink = FindCompanyUrl.findCompanyUrlInLeverWebsite(self,
-                                                                             self.listOfCompanies[j]['link'])
+                    searchLink = FindCompanyUrl.leverWebsite(self,
+                                                             self.listOfCompanies[j]['link'])
                 elif 'greenhouse' in self.listOfCompanies[j]['link']:
                     print('job was a greenhouse website')
-                    # searchLink = self.findCompanyUrlInGreenhouseWebsite(
-                    #     self.listOfCompanies[j]['link'])
-                    searchLink = FindCompanyUrl.findCompanyUrlInGreenhouseWebsite(self,
-                                                                                  self.listOfCompanies[j]['link'])
+                    searchLink = FindCompanyUrl.greenhouseWebsite(self,
+                                                                  self.listOfCompanies[j]['link'])
                 else:
                     self.driver.get('http://google.com/')
                     search = self.driver.find_element_by_css_selector(
@@ -117,23 +113,6 @@ class JobAutomation:
             self.listOfCompanies[j]["companyUrl"] = searchLink
             self.sheet['B' + str(self.backup)].hyperlink = searchLink
             self.backup += 1
-
-    def findCompanyUrlInLeverWebsite(self, jobLink):
-        self.driver.get(jobLink)
-        companyUrl = jobLink = self.driver.find_element_by_css_selector(
-            'body > div.main-footer.page-full-width > div > p > a').get_attribute('href')
-        print('findCompanyUrlInLeverWebsite', {jobLink, companyUrl})
-        return companyUrl
-
-    def findCompanyUrlInGreenhouseWebsite(self, jobLink):
-        self.driver.get(jobLink)
-        try:
-            companyUrl = jobLink = self.driver.find_element_by_css_selector(
-                '#logo > a').get_attribute('href')
-        except NoSuchElementException:
-            companyUrl = 'N/A findCompanyUrlInGreenhouseWebsite'
-        print('findCompanyUrlInGreenhouseWebsite', {jobLink, companyUrl})
-        return companyUrl
 
     def wholeProcess(self):
         self.findingEmptyRow()
