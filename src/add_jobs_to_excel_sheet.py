@@ -65,14 +65,9 @@ class JobAutomation:
                         '//*[@id="pnnext"]').click()
                     i = 1
                 else:
-                    print('hello', self.driver.find_element_by_css_selector(
-                        '#rso > div:nth-child('+str(i)+') > div > div > div.yuRUbf > a').get_attribute('href'))
                     jobLink = self.driver.find_element_by_css_selector(
                         '#rso > div:nth-child('+str(i)+') > div > div > div.yuRUbf > a').get_attribute('href')
                     name = jobLink.split('/')[3]
-                    if jobLink in self.listOfJobUrl:
-                        print(
-                            'it\'s already in excel sheet, no need to add duplicates')
                     if jobLink not in self.listOfJobUrl:
                         self.listOfCompanies.append(
                             {'name': name, 'link': jobLink})
@@ -88,15 +83,12 @@ class JobAutomation:
             i += 1
 
     def addCompanyUrl(self):
-        print('addCompanyUrl', self.listOfCompanies)
         for j in range(len(self.listOfCompanies)):
             try:
                 if 'lever' in self.listOfCompanies[j]['link']:
-                    print('job was a lever website')
                     searchLink = FindCompanyUrl.leverWebsite(self,
                                                              self.listOfCompanies[j]['link'])
                 elif 'greenhouse' in self.listOfCompanies[j]['link']:
-                    print('job was a greenhouse website')
                     searchLink = FindCompanyUrl.greenhouseWebsite(self,
                                                                   self.listOfCompanies[j]['link'])
                 else:
