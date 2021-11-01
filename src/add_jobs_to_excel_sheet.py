@@ -1,10 +1,13 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager
-from openpyxl import Workbook, load_workbook
-from find_company_url import FindCompanyUrl
 import os
 import sys
+from openpyxl import Workbook, load_workbook
+from openpyxl.styles import colors
+from openpyxl.styles import Font, Color
+
+from find_company_url import FindCompanyUrl
 
 os.chdir(os.path.expanduser("~/Desktop"))
 
@@ -16,12 +19,18 @@ class JobAutomation:
         wb = load_workbook(filename='job_progress.xlsx')
     else:
         wb = Workbook()
-        wb.active['A1'] = 'Company Name'
-        wb.active['B1'] = 'Company Website'
-        wb.active['C1'] = 'Job Posting'
-        wb.active['D1'] = 'Job Title'
-        wb.active['E1'] = 'Location'
+        ws = wb.active
+        ws['A1'] = 'Company Name'
+        ws['B1'] = 'Company Website'
+        ws['C1'] = 'Job Posting'
+        ws['D1'] = 'Job Title'
+        ws['E1'] = 'Location'
+        boldFont = Font(bold=True)
+        for cell in ws["1:1"]:
+            cell.font = boldFont
+        # ws.row_dimensions[1].font = Font(bold=True)
     sheet = wb.active
+    # row.font = Font(color="00FF66")
     emptyRow = 0
     backup = 0
     jobTitle = sys.argv[1]

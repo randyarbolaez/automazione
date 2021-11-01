@@ -1,6 +1,4 @@
-from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from webdriver_manager.chrome import ChromeDriverManager
 
 
 class FindCompanyUrl:
