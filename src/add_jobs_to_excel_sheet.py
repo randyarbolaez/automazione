@@ -17,6 +17,7 @@ class JobAutomation:
 
     if os.path.isfile('job_progress.xlsx'):
         wb = load_workbook(filename='job_progress.xlsx')
+        ws = wb.active
     else:
         wb = Workbook()
         ws = wb.active
@@ -28,9 +29,7 @@ class JobAutomation:
         boldFont = Font(bold=True)
         for cell in ws["1:1"]:
             cell.font = boldFont
-        # ws.row_dimensions[1].font = Font(bold=True)
     sheet = wb.active
-    # row.font = Font(color="00FF66")
     emptyRow = 0
     backup = 0
     jobTitle = sys.argv[1]
@@ -122,6 +121,12 @@ class JobAutomation:
         self.addCompanyUrl()
 
         self.driver.quit()
+        orangeFont = Font(color='FFA500', underline='single')
+        columnIteration = 0
+        for cell in self.sheet["C"]:
+            if columnIteration != 0:
+                cell.font = orangeFont
+            columnIteration += 1
         self.wb.save(filename="job_progress.xlsx")
         self.wb.close()
 
