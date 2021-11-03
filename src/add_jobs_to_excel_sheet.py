@@ -25,7 +25,7 @@ class JobAutomation:
         ws['B1'] = 'Company Website'
         ws['C1'] = 'Job Posting'
         ws['D1'] = 'Job Title'
-        ws['E1'] = 'Location'
+        ws['E1'] = 'Job Location'
         boldFont = Font(bold=True)
         for cell in ws["1:1"]:
             cell.font = boldFont
@@ -122,10 +122,16 @@ class JobAutomation:
 
         self.driver.quit()
         orangeFont = Font(color='FFA500', underline='single')
+        redFont = Font(color='9C0202')
         columnIteration = 0
         for cell in self.sheet["C"]:
             if columnIteration != 0:
                 cell.font = orangeFont
+            columnIteration += 1
+        columnIteration = 0
+        for cell in self.sheet["E"]:
+            if columnIteration != 0:
+                cell.font = redFont
             columnIteration += 1
         self.wb.save(filename="job_progress.xlsx")
         self.wb.close()
