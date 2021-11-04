@@ -8,7 +8,7 @@ class FindCompanyUrl:
             companyUrl = jobLink = self.driver.find_element_by_css_selector(
                 'body > div.main-footer.page-full-width > div > p > a').get_attribute('href')
         except NoSuchElementException:
-            companyUrl = 'N/A'
+            companyUrl = False
         return companyUrl
 
     def greenhouseWebsite(self, jobLink):
@@ -17,5 +17,5 @@ class FindCompanyUrl:
             companyUrl = jobLink = self.driver.find_element_by_css_selector(
                 '#logo > a').get_attribute('href')
         except NoSuchElementException:
-            companyUrl = 'N/A'
+            companyUrl = False
         return companyUrl

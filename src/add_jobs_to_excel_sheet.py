@@ -91,6 +91,7 @@ class JobAutomation:
             i += 1
 
     def addCompanyUrl(self):
+        coolBlueFont = Font(color='4984b8', underline='single')
         for j in range(len(self.listOfCompanies)):
             try:
                 if 'lever' in self.listOfCompanies[j]['link']:
@@ -108,10 +109,14 @@ class JobAutomation:
                     searchLink = self.driver.find_element_by_xpath(
                         '//*[@id="rso"]/div[1]/div/div/div/div[1]/a').get_attribute('href')
             except NoSuchElementException:
-                searchLink = 'Could not find link'
+                searchLink = False
+            print(searchLink)
+            if searchLink != False:
+                self.sheet['B' + str(self.backup)].hyperlink = searchLink
+                self.sheet['A' + str(self.backup)].hyperlink = searchLink
+                self.sheet['A' + str(self.backup)].font = coolBlueFont
 
             self.listOfCompanies[j]["companyUrl"] = searchLink
-            self.sheet['B' + str(self.backup)].hyperlink = searchLink
             self.backup += 1
 
     def wholeProcess(self):
@@ -123,6 +128,7 @@ class JobAutomation:
         self.driver.quit()
         orangeFont = Font(color='FFA500', underline='single')
         redFont = Font(color='9C0202')
+        coolBlueFont = Font(color='4984b8', underline='single')
         columnIteration = 0
         for cell in self.sheet["C"]:
             if columnIteration != 0:
@@ -133,6 +139,11 @@ class JobAutomation:
             if columnIteration != 0:
                 cell.font = redFont
             columnIteration += 1
+        # columnIteration = 0
+        # for cell in self.sheet["A"]:
+        #     if columnIteration != 0:
+        #         cell.font = coolBlueFont
+        #     columnIteration += 1
         self.wb.save(filename="job_progress.xlsx")
         self.wb.close()
 
