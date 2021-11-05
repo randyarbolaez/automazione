@@ -128,7 +128,6 @@ class JobAutomation:
         self.driver.quit()
         orangeFont = Font(color='FFA500', underline='single')
         redFont = Font(color='9C0202')
-        coolBlueFont = Font(color='4984b8', underline='single')
         columnIteration = 0
         for cell in self.sheet["C"]:
             if columnIteration != 0:
@@ -139,11 +138,6 @@ class JobAutomation:
             if columnIteration != 0:
                 cell.font = redFont
             columnIteration += 1
-        # columnIteration = 0
-        # for cell in self.sheet["A"]:
-        #     if columnIteration != 0:
-        #         cell.font = coolBlueFont
-        #     columnIteration += 1
         self.wb.save(filename="job_progress.xlsx")
         self.wb.close()
 
