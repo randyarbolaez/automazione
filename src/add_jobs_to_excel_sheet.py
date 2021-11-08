@@ -22,10 +22,9 @@ class JobAutomation:
         wb = Workbook()
         ws = wb.active
         ws['A1'] = 'Company Name'
-        ws['B1'] = 'Company Website'
-        ws['C1'] = 'Job Posting'
-        ws['D1'] = 'Job Title'
-        ws['E1'] = 'Job Location'
+        ws['B1'] = 'Job Posting'
+        ws['C1'] = 'Job Title'
+        ws['D1'] = 'Job Location'
         boldFont = Font(bold=True)
         for cell in ws["1:1"]:
             cell.font = boldFont
@@ -80,10 +79,10 @@ class JobAutomation:
                         self.listOfCompanies.append(
                             {'name': name, 'link': jobLink})
                         self.sheet['A' + str(self.emptyRow)] = name
-                        self.sheet['C' + str(self.emptyRow)
+                        self.sheet['B' + str(self.emptyRow)
                                    ].hyperlink = jobLink
-                        self.sheet['D' + str(self.emptyRow)] = self.jobTitle
-                        self.sheet['E' + str(self.emptyRow)
+                        self.sheet['C' + str(self.emptyRow)] = self.jobTitle
+                        self.sheet['D' + str(self.emptyRow)
                                    ] = self.locationToSearch
                         self.emptyRow += 1
             except NoSuchElementException:
@@ -112,7 +111,6 @@ class JobAutomation:
                 searchLink = False
             print(searchLink)
             if searchLink != False:
-                self.sheet['B' + str(self.backup)].hyperlink = searchLink
                 self.sheet['A' + str(self.backup)].hyperlink = searchLink
                 self.sheet['A' + str(self.backup)].font = coolBlueFont
 
@@ -129,12 +127,12 @@ class JobAutomation:
         orangeFont = Font(color='FFA500', underline='single')
         redFont = Font(color='9C0202')
         columnIteration = 0
-        for cell in self.sheet["C"]:
+        for cell in self.sheet["B"]:
             if columnIteration != 0:
                 cell.font = orangeFont
             columnIteration += 1
         columnIteration = 0
-        for cell in self.sheet["E"]:
+        for cell in self.sheet["D"]:
             if columnIteration != 0:
                 cell.font = redFont
             columnIteration += 1
