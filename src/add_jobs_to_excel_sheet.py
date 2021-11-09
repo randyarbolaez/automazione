@@ -117,13 +117,7 @@ class JobAutomation:
             self.listOfCompanies[j]["companyUrl"] = searchLink
             self.backup += 1
 
-    def wholeProcess(self):
-        self.findingEmptyRow()
-        self.addJobUrlToList()
-        self.addJobToList()
-        self.addCompanyUrl()
-
-        self.driver.quit()
+    def addFonts(self):
         orangeFont = Font(color='FFA500', underline='single')
         redFont = Font(color='9C0202')
         columnIteration = 0
@@ -136,6 +130,15 @@ class JobAutomation:
             if columnIteration != 0:
                 cell.font = redFont
             columnIteration += 1
+
+    def wholeProcess(self):
+        self.findingEmptyRow()
+        self.addJobUrlToList()
+        self.addJobToList()
+        self.addCompanyUrl()
+
+        self.driver.quit()
+        self.addFonts()
         self.wb.save(filename="job_progress.xlsx")
         self.wb.close()
 
