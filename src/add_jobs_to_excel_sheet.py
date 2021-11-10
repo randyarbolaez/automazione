@@ -120,16 +120,16 @@ class JobAutomation:
     def addFonts(self):
         orangeFont = Font(color='FFA500', underline='single')
         redFont = Font(color='9C0202')
-        columnIteration = 0
+        bColumnIteration = 0
+        dColumnIteration = 0
         for cell in self.sheet["B"]:
-            if columnIteration != 0:
+            if bColumnIteration != 0:
                 cell.font = orangeFont
-            columnIteration += 1
-        columnIteration = 0
+            bColumnIteration += 1
         for cell in self.sheet["D"]:
-            if columnIteration != 0:
+            if dColumnIteration != 0:
                 cell.font = redFont
-            columnIteration += 1
+            dColumnIteration += 1
 
     def wholeProcess(self):
         self.findingEmptyRow()
