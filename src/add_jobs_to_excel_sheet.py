@@ -4,8 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import os
 import sys
 from openpyxl import Workbook, load_workbook
-from openpyxl.styles import colors
-from openpyxl.styles import Font, Color
+from openpyxl.styles import Font
 
 from find_company_url import FindCompanyUrl
 
@@ -90,7 +89,7 @@ class JobAutomation:
             i += 1
 
     def addCompanyUrl(self):
-        coolBlueFont = Font(color='4984b8', underline='single')
+        companyNameFont = Font(color='4984b8', underline='single')
         for j in range(len(self.listOfCompanies)):
             try:
                 if 'lever' in self.listOfCompanies[j]['link']:
@@ -112,23 +111,23 @@ class JobAutomation:
             print(searchLink)
             if searchLink != False:
                 self.sheet['A' + str(self.backup)].hyperlink = searchLink
-                self.sheet['A' + str(self.backup)].font = coolBlueFont
+                self.sheet['A' + str(self.backup)].font = companyNameFont
 
             self.listOfCompanies[j]["companyUrl"] = searchLink
             self.backup += 1
 
     def addFonts(self):
-        orangeFont = Font(color='FFA500', underline='single')
-        redFont = Font(color='9C0202')
+        jobPostingFont = Font(color='FFA500', underline='single')
+        jobLocationFont = Font(color='9C0202')
         bColumnIteration = 0
         dColumnIteration = 0
         for cell in self.sheet["B"]:
             if bColumnIteration != 0:
-                cell.font = orangeFont
+                cell.font = jobPostingFont
             bColumnIteration += 1
         for cell in self.sheet["D"]:
             if dColumnIteration != 0:
-                cell.font = redFont
+                cell.font = jobLocationFont
             dColumnIteration += 1
 
     def wholeProcess(self):
