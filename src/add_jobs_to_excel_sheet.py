@@ -119,16 +119,16 @@ class JobAutomation:
     def addFonts(self):
         jobPostingFont = Font(color='FFA500', underline='single')
         jobLocationFont = Font(color='9C0202')
-        bColumnIteration = 0
-        dColumnIteration = 0
+        jobPostingColumnIteration = 0
+        jobLocationColumnIteration = 0
         for cell in self.sheet["B"]:
-            if bColumnIteration != 0:
+            if jobPostingColumnIteration != 0:
                 cell.font = jobPostingFont
-            bColumnIteration += 1
+            jobPostingColumnIteration += 1
         for cell in self.sheet["D"]:
-            if dColumnIteration != 0:
+            if jobLocationColumnIteration != 0:
                 cell.font = jobLocationFont
-            dColumnIteration += 1
+            jobLocationColumnIteration += 1
 
     def wholeProcess(self):
         self.findingEmptyRow()
@@ -142,9 +142,7 @@ class JobAutomation:
         self.wb.close()
 
 
-def main():
-    j = JobAutomation()
-    j.wholeProcess()
+j = JobAutomation()
 
 
-main()
+j.wholeProcess()
