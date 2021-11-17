@@ -1,6 +1,6 @@
 # Automazione
 
-Automazione is a project that scrapes google for jobs and adds information(Comapany Name,Company URL, Job Titile, Job URL, Job Location) to an Excel Sheet in your Desktop.
+Automazione is a project that scrapes google for jobs and adds information (Company Name and URL,Job Title,URL and Location) to an Excel Sheet in your Desktop.
 
 ## How to Use
 
